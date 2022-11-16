@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ product_detail }}</title>
+        <style type="text/css">
+   .space {
+    padding: 25px; /* Поля */
+    background: #E5D3BD; /* Цвет фона */
+    border: 50px solid #E81E25; /* Параметры рамки */
+   }
+  </style>
+</head>
+<body>
+<div class="space">
+    <img src="{{ product.image }}" alt="product"></img>
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.description }}</p>
+    <p>Цена: {{ product.price }}c</p>
+    <p>{{ product.amount }}</p>
+    <hr>
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <p>Author: {{ comment.author }}</p>
+        <p>Text: {{ comment.text }}</p>
+        <hr>
+    {% endfor %}
+
+</div>
+</body>
+</html>
