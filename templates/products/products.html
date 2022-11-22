@@ -10,7 +10,7 @@
   </style>
     {% for product in products %}
         <div class="space">
-            <img src="{{ product.image }}" alt="product"></img>
+            <img src="/media/{{ product.image }}/" width="100" height="130">
             <h3>{{ product.title }}</h3>
             <p>{{ product.description }}</p>
             <p>Цена: {{ product.price }}c</p>

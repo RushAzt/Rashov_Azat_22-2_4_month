@@ -1,70 +1,32 @@
 {% extends 'layouts/main.html' %}
 {% block content %}
-    <style>
-        .atukopesa_kumilogan {
-  padding: 20px;
-  border: 5px solid #f1f1f1;
-  background: #fff;
-  border-radius: 5px;
-  font-family: 'Roboto', sans-serif;
-}
-.atukopesa_kumilogan h3 {
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: normal;
-  color:  #424949;
-}
-.atukopesa_kumilogan ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 250px;
-}
-.atukopesa_kumilogan li {
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-}
-.atukopesa_kumilogan li:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.atukopesa_kumilogan a {
-  text-decoration: none;
-  color:  #616a6b;
-  display: inline-block;
-}
-.atukopesa_kumilogan li:before {
-  font-family: FontAwesome;
-  font-size: 20px;
-  vertical-align:bottom;
-  color: #dd3333;
-  margin-right: 14px;
-}
-.atukopesa_kumilogan li:nth-child(1):before {
-  content:"\f1fc";
-}
-.atukopesa_kumilogan li:nth-child(2):before {
-  content:"\f0d0";
-}
-.atukopesa_kumilogan li:nth-child(3):before {
-  content:"\f0cd";
-}
-.atukopesa_kumilogan li:nth-child(4):before {
-  content:"\f028";
-}
-.atukopesa_kumilogan li:nth-child(5):before {
-  content:"\f03d";
-}
+    <h1></h1>
+    <style type="text/css">
+        .category {
+            display: flex;
+            justify-content: space-between;
+            width: 20%;
+        }
+        .categories {
+            display: block;
+            justify-content: space-between;
+            width: 80%;
+            margin-left: 10%;
+        }
+        .category > img {
+            width: 40px;
+        }
     </style>
-   <div class="atukopesa_kumilogan">
-  <h3>Категории</h3>
-  <ul>
-    <li><a href="/product/{{ product.id }}3/">Ноутбуки</a></li>
-    <li><a href="/product/{{ product.id }}2/">Комьпютеры</a></li>
-    <li><a href="/product/{{ product.id }}1/">Телефоны</a></li>
-  </ul>
-</div>
+    <div class="categories">
+        {% for category in categories %}
+            <div class="category">
+                <img src="/media/{{ category.icon }}">
+                <h3>
+                    <a href="/product/?category_id={{ category.id }}">
+                        {{ category.title }}
+                    </a>
+                </h3>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
