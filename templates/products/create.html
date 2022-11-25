@@ -1,0 +1,8 @@
+{% extends 'layouts/main.html' %}
+{% block content %}
+    <form action="/product/create/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Create Product">
+    </form>
+{% endblock %}
