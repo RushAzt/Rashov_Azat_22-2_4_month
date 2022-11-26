@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from products.models import Product, Comment, Category
 from .forms import ProductCreateForm, ReviewCreateForm
-
+from users.utils import get_user_from_request
 
 
 def main_view(request):
     if request.method == 'GET':
         return render(request, 'layouts/main.html')
+
+
 def product_detail_view(request, id):
     if request.method == "GET":
         product = Product.objects.get(id=id)
@@ -14,7 +16,8 @@ def product_detail_view(request, id):
         data = {
             'product': product,
             'comments': comments,
-            'form': ReviewCreateForm
+            'form': ReviewCreateForm,
+            'user': get_user_from_request(request)
         }
         return render(request, 'products/detail.html', context=data)
     if request.method == "POST":
@@ -37,6 +40,7 @@ def product_detail_view(request, id):
             }
             return render(request, 'products/detail.html', context=data)
 
+
 def product_view(request):
     if request.method == 'GET':
         category_id = request.GET.get('category_id')
@@ -57,7 +61,9 @@ def product_view(request):
         } for product in products]
 
         data = {
-            'products': products
+            'products': products,
+            'user': get_user_from_request(request)
+
         }
 
         return render(request, 'products/products.html', context=data)
@@ -75,7 +81,9 @@ def categories_view(request):
 def product_create_view(request):
     if request.method == "GET":
         data = {
-            'form': ProductCreateForm
+            'form': ProductCreateForm,
+            'user': get_user_from_request(request)
+
         }
         return render(request, 'products/create.html', context=data)
     if request.method == "POST":
@@ -94,6 +102,8 @@ def product_create_view(request):
             return redirect('/product')
         else:
             data = {
-                'form': form
+                'form': form,
+                'user': get_user_from_request(request)
+
             }
             return render(request, 'products/create.html', context=data)
