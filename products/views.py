@@ -40,16 +40,19 @@ def product_detail_view(request, id):
             }
             return render(request, 'products/detail.html', context=data)
 
-
+PAGINATION_LIMIT = 3
 def product_view(request):
     if request.method == 'GET':
         category_id = request.GET.get('category_id')
+        search_word = request.GET.get('search')
+        page = int(request.GET.get('page', 1))
 
         if category_id:
             products = Product.objects.filter(categories__in=[category_id])
         else:
             products = Product.objects.all()
-
+        if search_word:
+            products = products.filter(title__icontains=search_word)
         products = [{
             'id': product.id,
             'title': product.title,
@@ -60,10 +63,14 @@ def product_view(request):
             'categories': product.categories
         } for product in products]
 
+        max_page = round(products.__len__() / PAGINATION_LIMIT)
+        products = products[PAGINATION_LIMIT * (page-1): PAGINATION_LIMIT * page]
         data = {
             'products': products,
-            'user': get_user_from_request(request)
-
+            'user': get_user_from_request(request),
+            'category_id': category_id,
+            'max_page': range(1, max_page+1),
+            'page': page
         }
 
         return render(request, 'products/products.html', context=data)
