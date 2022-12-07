@@ -1,2 +1,2 @@
-def get_user_from_request(reqquest):
-    return reqquest.user if not reqquest.user.is_anonymous else None
+def get_user_from_request(request):
+    return request.user if not request.user.is_anonymous else None
